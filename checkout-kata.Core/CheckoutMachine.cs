@@ -12,7 +12,10 @@ namespace checkout_kata.Core
         // Shopping basket containing items (Item) and related quantities (int)
         public Dictionary<Item, int> ShoppingBasket { get; set; }
 
-        public int TotalPrice = 0; // presumably in pence, therefore int.
+        // presumably in pence, therefore int.
+        public int TotalPrice { get; set; } 
+
+        public Logger Logger { get; set; }
 
         public void Scan(string sku)
         {
@@ -21,7 +24,7 @@ namespace checkout_kata.Core
 
             if (item == null)
             {
-                Log("An invalid item was scanned.");
+                Logger.Log("An invalid item was scanned.");
                 return;
             }
 
@@ -29,12 +32,12 @@ namespace checkout_kata.Core
             if (!ShoppingBasket.ContainsKey(item))
             {
                 ShoppingBasket.Add(item, 1);
-                Log($"A new item {item.Sku} was added. Total price: {TotalPrice}");
+                Logger.Log($"A new item {item.Sku} was added. Total price: {TotalPrice}");
             }
             else
             {
                 ShoppingBasket[item]++;
-                Log($"Quantity of {item.Sku} is now {ShoppingBasket[item]}.");
+                Logger.Log($"Quantity of {item.Sku} is now {ShoppingBasket[item]}.");
             }
 
             TotalPrice += item.UnitPrice;
@@ -47,6 +50,10 @@ namespace checkout_kata.Core
             AllItems = itemInfo.GetAllProductData();
 
             ShoppingBasket = new Dictionary<Item, int>();
+
+            TotalPrice = 0;
+
+            Logger = new Logger();
         }
 
         // User presses the Done button on the screen.
@@ -54,9 +61,12 @@ namespace checkout_kata.Core
         {
             ProcessAllDiscounts();
 
-            Log($"Your total price is: {TotalPrice}");
+            Logger.Log($"Your total price is: {TotalPrice}");
         }
 
+        /// <summary>
+        /// Calculates all the discounts that are applicable to the items in the shopping basket.
+        /// </summary>
         private void ProcessAllDiscounts()
         {
             foreach (var addedItem in ShoppingBasket)
@@ -67,14 +77,16 @@ namespace checkout_kata.Core
                     int quantityNeededForSpecialOffer = addedItem.Key.QuantityNeededForSpecialOffer;
                     int specialOfferPrice = addedItem.Key.SpecialOfferPrice;
                     int addedItemCount = addedItem.Value;
-
+                    
                     int numberOfTimesToApplySameDiscount = addedItem.Value % quantityNeededForSpecialOffer;
 
                     // Remove the undiscounted price, and replace with the discounted price.
+                    // As an example, if there are 7 items and a "2 for 50p" discount is applicable,
+                    // the discount should be applied 7 % 2 = 3 times.
                     TotalPrice -= (quantityNeededForSpecialOffer * unitPrice) * numberOfTimesToApplySameDiscount;
                     TotalPrice += specialOfferPrice * numberOfTimesToApplySameDiscount;
 
-                    Log($"Discount for {addedItem.Key.Sku} has been computed. Total price is now {TotalPrice}.");
+                    Logger.Log($"Discount for {addedItem.Key.Sku} has been computed. Total price is now {TotalPrice}.");
                 }
             }
         }
@@ -82,14 +94,6 @@ namespace checkout_kata.Core
         public void ClearShoppingBasket()
         {
             ShoppingBasket = new Dictionary<Item, int>();
-        }
-
-        /// <summary>
-        /// Logs a status message. In production code, this would be done via a proper logging interface.
-        /// </summary>
-        public void Log(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 }
