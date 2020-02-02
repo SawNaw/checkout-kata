@@ -5,4 +5,8 @@
     <RootNamespace>checkout_kata.Core</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\checkout-kata.Data\checkout-kata.Data.csproj" />
+  </ItemGroup>
+
 </Project>
