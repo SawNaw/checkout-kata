@@ -6,7 +6,7 @@ namespace checkout_kata.Console
     {
         static void Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
+            System.Console.WriteLine("All simulation done through the unit tests.");
         }
     }
 }
