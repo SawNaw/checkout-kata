@@ -5,7 +5,7 @@ namespace checkout_kata.Data
     public class Item
     {
         public string Sku { get; set; }
-        public double UnitPrice { get; set; } 
+        public int UnitPrice { get; set; } // Assuming the price is stored in pence, therefore integer.
 
         /// <summary>
         /// The quantity that qualifies an item for a special offer price.
@@ -17,7 +17,7 @@ namespace checkout_kata.Data
         /// </summary>
         public int SpecialOfferPrice { get; set; }
 
-        public Item(string sku, double unitPrice, int specialOfferQuantity, int specialOfferPrice)
+        public Item(string sku, int unitPrice, int specialOfferQuantity, int specialOfferPrice)
         {
             this.Sku = sku;
             this.UnitPrice = unitPrice;
