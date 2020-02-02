@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkout-kata.Console", "checkout-kata.Console\checkout-kata.Console.csproj", "{4865A24B-FCDC-48D1-A042-8A40DCBCE5BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "checkout-kata.Console", "checkout-kata.Console\checkout-kata.Console.csproj", "{4865A24B-FCDC-48D1-A042-8A40DCBCE5BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkout-kata", "checkout-kata\checkout-kata.csproj", "{78E16455-1913-4CB4-A31A-B4E5EB6DB15E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "checkout-kata", "checkout-kata\checkout-kata.csproj", "{78E16455-1913-4CB4-A31A-B4E5EB6DB15E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkout-kataTests", "checkout-kataTests\checkout-kataTests.csproj", "{DBF3E4FB-EE1A-4548-B763-37E7FB1D1667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "checkout-kataTests", "checkout-kataTests\checkout-kataTests.csproj", "{DBF3E4FB-EE1A-4548-B763-37E7FB1D1667}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checkout-kata.Data", "checkout-kata.Data\checkout-kata.Data.csproj", "{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4865A24B-FCDC-48D1-A042-8A40DCBCE5BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +57,23 @@ Global
 		{DBF3E4FB-EE1A-4548-B763-37E7FB1D1667}.Release|x64.Build.0 = Release|Any CPU
 		{DBF3E4FB-EE1A-4548-B763-37E7FB1D1667}.Release|x86.ActiveCfg = Release|Any CPU
 		{DBF3E4FB-EE1A-4548-B763-37E7FB1D1667}.Release|x86.Build.0 = Release|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Debug|x64.Build.0 = Debug|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Debug|x86.Build.0 = Debug|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Release|x64.ActiveCfg = Release|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Release|x64.Build.0 = Release|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Release|x86.ActiveCfg = Release|Any CPU
+		{EDA6CB6A-FB95-478A-A699-6EC41BC8081B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45EF755B-8F46-45A5-A424-E160AFA1CFC3}
 	EndGlobalSection
 EndGlobal
