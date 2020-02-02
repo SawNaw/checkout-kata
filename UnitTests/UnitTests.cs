@@ -24,6 +24,60 @@ namespace UnitTests
         }
 
         [Test]
+        public void ScanTwoItems()
+        {
+            checkoutMachine.Scan("C40");
+
+            checkoutMachine.Scan("T34");
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 159);
+        }
+
+        public void ScanFourApples()
+        {
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 180);
+        }
+
+        [Test]
+        public void ScanThreeBiscuits()
+        {
+            checkoutMachine.Scan("B15");
+            checkoutMachine.Scan("B15");
+            checkoutMachine.Scan("B15");
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 75);
+        }
+
+        [Test]
+        public void ScanFourApplesAndThreeBiscuits()
+        {
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+
+            checkoutMachine.Scan("B15");
+            checkoutMachine.Scan("B15");
+            checkoutMachine.Scan("B15");
+
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 255);
+        }
+
+        [Test]
         public void ScanInvalidItem_TestFails()
         {
             checkoutMachine.Scan("INVALID SKU");
