@@ -5,7 +5,7 @@ namespace checkout_kata
     public class Basket
     {
         public void Scan() {
-            throw new NotImplementedException("TODO");
+            throw new NotImplementedException("Test checkin.");
         }
         public void Total()
         {
