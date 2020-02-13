@@ -51,18 +51,33 @@ namespace UnitTests
         [Test]
         public void ScanSixApples()
         {
-            checkoutMachine.Scan("A99");
-            checkoutMachine.Scan("A99");
-            checkoutMachine.Scan("A99");
-            checkoutMachine.Scan("A99");
-            checkoutMachine.Scan("A99");
-            checkoutMachine.Scan("A99");
+            int applesToScan = 6;
+
+            for (int i = 0; i < applesToScan; i++)
+            {
+                checkoutMachine.Scan("A99");
+            }
 
             checkoutMachine.Done();
 
-            Assert.AreEqual(checkoutMachine.TotalPrice, 260);
+            Assert.AreEqual(checkoutMachine.TotalPrice, 200);
         }
-       
+
+        [Test]
+        public void ScanElevenApples()
+        {
+            int applesToScan = 11;
+
+            for (int i = 0; i < applesToScan; i++)
+            {
+                checkoutMachine.Scan("A99");
+            }
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 430);
+        }
+
         [Test]
         public void ScanFourApplesPlus1B()
         {
@@ -101,6 +116,21 @@ namespace UnitTests
             checkoutMachine.Done();
 
             Assert.AreEqual(checkoutMachine.TotalPrice, 75);
+        }
+
+        [Test]
+        public void ScanElevenBiscuits()
+        {
+            int numberOfBiscuits = 11;
+
+            for (int i = 0; i < numberOfBiscuits; i++)
+            {
+                checkoutMachine.Scan("B15");
+            }
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 195);
         }
 
         [Test]

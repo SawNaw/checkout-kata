@@ -22,7 +22,7 @@ namespace checkout_kata.Data
 
             List<Discount> biscuitDiscounts = new List<Discount>();
             biscuitDiscounts.Add(new Discount("2For45", 2, 45));
-            biscuitDiscounts.Add(new Discount("4For60", 4, 60));
+            biscuitDiscounts.Add(new Discount("4For60", 4, 60)); 
 
             List<Item> allItems = new List<Item>()
             {

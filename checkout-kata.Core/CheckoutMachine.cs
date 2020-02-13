@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreLinq.Extensions;
 
 namespace checkout_kata.Core
 {
@@ -64,19 +65,19 @@ namespace checkout_kata.Core
             Logger.Log($"Your total price is: {TotalPrice}");
         }
 
-        /// <summary>
-        /// Calculates all the discounts that are applicable to the items in the shopping basket.
-        /// </summary>
-        private void ProcessAllDiscounts()
+        
+        [Obsolete("This method is obsolete and a candidate for deletion", true)]
+        private void ProcessAllDiscounts_OLD()
         {
             foreach (var addedItem in ShoppingBasket)
             {
-                if (addedItem.Key.Discounts.Count > 0) // if a discount is potentially applicable
+                if (addedItem.Key.Discounts.Count > 0) 
                 {
                     int unitPrice = addedItem.Key.UnitPrice;
+                    int addedItemCount = addedItem.Value;
+
                     int quantityNeededForDiscount = addedItem.Key.Discounts.First().QuantityNeededForDiscount;
                     int discountPrice = addedItem.Key.Discounts.First().DiscountPrice;
-                    int addedItemCount = addedItem.Value;
                     
                     int numberOfTimesToApplySameDiscount = addedItem.Value / quantityNeededForDiscount;
 
@@ -89,6 +90,43 @@ namespace checkout_kata.Core
                     TotalPrice += bulkDiscountedPrice;
 
                     Logger.Log($"Discount for {addedItem.Key.Sku} has been computed. Total price is now {TotalPrice}.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Calculates all the discounts that are applicable to the items in the shopping basket.
+        /// </summary>
+        private void ProcessAllDiscounts()
+        {
+            foreach (var item in ShoppingBasket)
+            {
+                int unitPrice = item.Key.UnitPrice;
+
+                int itemCount = item.Value;
+
+                while (item.Key.Discounts.Count > 0)
+                {
+                    var currentDiscount = item.Key.Discounts.MaxBy(x => x.QuantityNeededForDiscount)
+                                                            .Single();
+
+                    int quantityNeededForDiscount = currentDiscount.QuantityNeededForDiscount;
+
+                    int discountPrice = currentDiscount.DiscountPrice;
+
+                    if (itemCount >= quantityNeededForDiscount)
+                    {
+                        TotalPrice -= unitPrice * quantityNeededForDiscount;
+                        TotalPrice += discountPrice;
+
+                        Logger.Log($"Discount for {item.Key.Sku} has been computed. Total price is now {TotalPrice}.");
+
+                        itemCount -= quantityNeededForDiscount;
+                    }
+                    else
+                    {
+                        item.Key.Discounts.Remove(currentDiscount);
+                    }
                 }
             }
         }
