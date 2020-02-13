@@ -71,21 +71,21 @@ namespace checkout_kata.Core
         {
             foreach (var addedItem in ShoppingBasket)
             {
-                if (addedItem.Key.QuantityNeededForSpecialOffer != 0) // if a discount is potentially applicable
+                if (addedItem.Key.Discounts.Count > 0) // if a discount is potentially applicable
                 {
                     int unitPrice = addedItem.Key.UnitPrice;
-                    int quantityNeededForSpecialOffer = addedItem.Key.QuantityNeededForSpecialOffer;
-                    int specialOfferPrice = addedItem.Key.SpecialOfferPrice;
+                    int quantityNeededForDiscount = addedItem.Key.Discounts.First().QuantityNeededForDiscount;
+                    int discountPrice = addedItem.Key.Discounts.First().DiscountPrice;
                     int addedItemCount = addedItem.Value;
                     
-                    int numberOfTimesToApplySameDiscount = addedItem.Value / quantityNeededForSpecialOffer;
+                    int numberOfTimesToApplySameDiscount = addedItem.Value / quantityNeededForDiscount;
 
                     // Remove the undiscounted price, and replace with the discounted price.
                     // As an example, if there are 7 items and a "2 for 50p" discount is applicable,
-                    // the discount should be applied 7 % 2 = 3 times.
-                    int undiscountedPriceForBulkDeal = (quantityNeededForSpecialOffer * unitPrice) * numberOfTimesToApplySameDiscount;
+                    // the discount should be applied 7 / 2 = 3 times.
+                    int undiscountedPriceForBulkDeal = (quantityNeededForDiscount * unitPrice) * numberOfTimesToApplySameDiscount;
                     TotalPrice -= undiscountedPriceForBulkDeal;
-                    int bulkDiscountedPrice = specialOfferPrice * numberOfTimesToApplySameDiscount;
+                    int bulkDiscountedPrice = discountPrice * numberOfTimesToApplySameDiscount;
                     TotalPrice += bulkDiscountedPrice;
 
                     Logger.Log($"Discount for {addedItem.Key.Sku} has been computed. Total price is now {TotalPrice}.");

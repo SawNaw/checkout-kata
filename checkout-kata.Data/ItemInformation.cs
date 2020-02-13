@@ -15,12 +15,21 @@ namespace checkout_kata.Data
         /// </remarks>
         public List<Item> GetAllProductData()
         {
+
+            List<Discount> appleDiscounts = new List<Discount>();
+            appleDiscounts.Add(new Discount("3For130", 3, 130));
+            appleDiscounts.Add(new Discount("6For200", 6, 200));
+
+            List<Discount> biscuitDiscounts = new List<Discount>();
+            biscuitDiscounts.Add(new Discount("2For45", 2, 45));
+            biscuitDiscounts.Add(new Discount("4For60", 4, 60));
+
             List<Item> allItems = new List<Item>()
             {
-                new Item("A99", 50, 3, 130),
-                new Item("B15", 30, 2, 45),
-                new Item("C40", 60, 0, 0),
-                new Item("T34", 99, 0, 0),
+                new Item("A99", 50, appleDiscounts),
+                new Item("B15", 30, biscuitDiscounts),
+                new Item("C40", 60),
+                new Item("T34", 99),
             };
 
             return allItems;

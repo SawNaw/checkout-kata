@@ -4,7 +4,7 @@ using System;
 
 namespace UnitTests
 {
-    public class Tests
+    public class SingleDiscountTests
     {
         CheckoutMachine checkoutMachine = new CheckoutMachine();
 
