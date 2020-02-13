@@ -1,5 +1,6 @@
 using checkout_kata.Core;
 using NUnit.Framework;
+using System;
 
 namespace UnitTests
 {
@@ -35,6 +36,7 @@ namespace UnitTests
             Assert.AreEqual(checkoutMachine.TotalPrice, 159);
         }
 
+        [Test]
         public void ScanFourApples()
         {
             checkoutMachine.Scan("A99");
@@ -45,6 +47,48 @@ namespace UnitTests
             checkoutMachine.Done();
 
             Assert.AreEqual(checkoutMachine.TotalPrice, 180);
+        }
+        [Test]
+        public void ScanSixApples()
+        {
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 260);
+        }
+       
+        [Test]
+        public void ScanFourApplesPlus1B()
+        {
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("B15");
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 210);
+        }
+        [Test]
+        public void ScanFourApplesPlus2B()
+        {
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("B15");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("B15");
+
+            checkoutMachine.Done();
+
+            Assert.AreEqual(checkoutMachine.TotalPrice, 225);
         }
 
         [Test]
@@ -63,12 +107,12 @@ namespace UnitTests
         public void ScanFourApplesAndThreeBiscuits()
         {
             checkoutMachine.Scan("A99");
-            checkoutMachine.Scan("A99");
-            checkoutMachine.Scan("A99");
-            checkoutMachine.Scan("A99");
-
+            
             checkoutMachine.Scan("B15");
+            checkoutMachine.Scan("A99");
+            checkoutMachine.Scan("A99");
             checkoutMachine.Scan("B15");
+            checkoutMachine.Scan("A99");
             checkoutMachine.Scan("B15");
 
 
@@ -78,14 +122,9 @@ namespace UnitTests
         }
 
         [Test]
-        public void ScanInvalidItem_TestFails()
+        public void ScanInvalidItem_ThrowsException()
         {
-            checkoutMachine.Scan("INVALID SKU");
-
-            checkoutMachine.Done();
-
-            // This should FAIL!
-            Assert.AreEqual(checkoutMachine.TotalPrice, 255);
+            Assert.Throws<InvalidBarcodeException>(()=> checkoutMachine.Scan("INVALID SKU"));
         }
     }
 }

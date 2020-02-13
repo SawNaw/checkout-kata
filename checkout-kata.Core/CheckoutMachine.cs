@@ -23,9 +23,9 @@ namespace checkout_kata.Core
             var item = AllItems.FirstOrDefault(x => x.Sku == sku);
 
             if (item == null)
-            {
+            {              
                 Logger.Log("An invalid item was scanned.");
-                return;
+                throw new InvalidBarcodeException("Invalid item");
             }
 
             // Add the item to the basket.
@@ -78,13 +78,15 @@ namespace checkout_kata.Core
                     int specialOfferPrice = addedItem.Key.SpecialOfferPrice;
                     int addedItemCount = addedItem.Value;
                     
-                    int numberOfTimesToApplySameDiscount = addedItem.Value % quantityNeededForSpecialOffer;
+                    int numberOfTimesToApplySameDiscount = addedItem.Value / quantityNeededForSpecialOffer;
 
                     // Remove the undiscounted price, and replace with the discounted price.
                     // As an example, if there are 7 items and a "2 for 50p" discount is applicable,
                     // the discount should be applied 7 % 2 = 3 times.
-                    TotalPrice -= (quantityNeededForSpecialOffer * unitPrice) * numberOfTimesToApplySameDiscount;
-                    TotalPrice += specialOfferPrice * numberOfTimesToApplySameDiscount;
+                    int undiscountedPriceForBulkDeal = (quantityNeededForSpecialOffer * unitPrice) * numberOfTimesToApplySameDiscount;
+                    TotalPrice -= undiscountedPriceForBulkDeal;
+                    int bulkDiscountedPrice = specialOfferPrice * numberOfTimesToApplySameDiscount;
+                    TotalPrice += bulkDiscountedPrice;
 
                     Logger.Log($"Discount for {addedItem.Key.Sku} has been computed. Total price is now {TotalPrice}.");
                 }
